@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Escolar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        📚 Biblioteca Escolar
+    </div>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#emprestimos">Empréstimos</a>
+        <a href="#cadastro">Cadastrar</a>
+    </nav>
+</header>
+
+<main>
+
+    <!-- INÍCIO -->
+    <section id="inicio" class="hero">
+        <div>
+            <h1>Biblioteca Escolar</h1>
+            <p>Encontre livros, consulte a disponibilidade e organize os empréstimos.</p>
+
+            <a href="#catalogo" class="btn">Ver catálogo</a>
+        </div>
+    </section>
+
+    <!-- ESTATÍSTICAS -->
+    <section class="estatisticas">
+
+        <div class="card">
+            <span>📚</span>
+            <h2 id="totalLivros">0</h2>
+            <p>Total de livros</p>
+        </div>
+
+        <div class="card">
+            <span>✅</span>
+            <h2 id="livrosDisponiveis">0</h2>
+            <p>Disponíveis</p>
+        </div>
+
+        <div class="card">
+            <span>📖</span>
+            <h2 id="livrosEmprestados">0</h2>
+            <p>Emprestados</p>
+        </div>
+
+        <div class="card">
+            <span>⏰</span>
+            <h2 id="livrosAtrasados">0</h2>
+            <p>Atrasados</p>
+        </div>
+
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="section">
+
+        <div class="titulo-section">
+            <h2>📚 Catálogo de livros</h2>
+            <p>Pesquise pelos livros disponíveis na biblioteca.</p>
+        </div>
+
+        <div class="filtros">
+
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="🔎 Pesquisar por título ou autor..."
+            >
+
+            <select id="filtroCategoria">
+                <option value="">Todas as categorias</option>
+                <option value="Literatura">Literatura</option>
+                <option value="Ciências">Ciências</option>
+                <option value="História">História</option>
+                <option value="Matemática">Matemática</option>
+                <option value="Geografia">Geografia</option>
+                <option value="Infantil">Infantil</option>
+            </select>
+
+        </div>
+
+        <div id="listaLivros" class="livros"></div>
+
+    </section>
+
+    <!-- EMPRÉSTIMOS -->
+    <section id="emprestimos" class="section">
+
+        <div class="titulo-section">
+            <h2>📋 Empréstimos</h2>
+            <p>Consulte os livros que estão emprestados.</p>
+        </div>
+
+        <div class="tabela-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aluno</th>
+                        <th>Turma</th>
+                        <th>Livro</th>
+                        <th>Empréstimo</th>
+                        <th>Devolução</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelaEmprestimos"></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- CADASTRO -->
+    <section id="cadastro" class="section">
+
+        <div class="titulo-section">
+            <h2>➕ Cadastrar livro</h2>
+            <p>Adicione um novo livro ao catálogo.</p>
+        </div>
+
+        <form id="formLivro">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Título</label>
+                    <input type="text" id="titulo" required>
+                </div>
+
+                <div>
+                    <label>Autor</label>
+                    <input type="text" id="autor" required>
+                </div>
+
+                <div>
+                    <label>Categoria</label>
+
+                    <select id="categoria" required>
+                        <option value="">Selecione</option>
+                        <option value="Literatura">Literatura</option>
+                        <option value="Ciências">Ciências</option>
+                        <option value="História">História</option>
+                        <option value="Matemática">Matemática</option>
+                        <option value="Geografia">Geografia</option>
+                        <option value="Infantil">Infantil</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Ano</label>
+                    <input type="number" id="ano" min="1000" max="2100" required>
+                </div>
+
+                <div>
+                    <label>Localização</label>
+                    <input
+                        type="text"
+                        id="localizacao"
+                        placeholder="Ex: Estante A - Prateleira 2"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label>Sinopse</label>
+                    <textarea id="sinopse" required></textarea>
+                </div>
+
+            </div>
+
+            <button class="btn" type="submit">
+                Cadastrar livro
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>📚 Biblioteca Escolar © 2026</p>
+</footer>
+
+<!-- MODAL DE EMPRÉSTIMO -->
+
+<div id="modalEmprestimo" class="modal">
+
+    <div class="modal-content">
+
+        <button class="fechar" onclick="fecharModal()">×</button>
+
+        <h2>📖 Registrar empréstimo</h2>
+
+        <p id="livroSelecionado"></p>
+
+        <form id="formEmprestimo">
+
+            <input type="hidden" id="idLivro">
+
+            <label>Nome do aluno</label>
+            <input type="text" id="nomeAluno" required>
+
+            <label>Turma</label>
+            <input type="text" id="turmaAluno" placeholder="Ex: 8º A" required>
+
+            <label>Data de devolução</label>
+            <input type="date" id="dataDevolucao" required>
+
+            <button class="btn" type="submit">
+                Confirmar empréstimo
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
